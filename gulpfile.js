@@ -24,6 +24,7 @@ var gulp = require('gulp'),
 var runList = [
     'styles',
     'images',
+    'sounds',
     'scripts',
     'html'
 ];
@@ -67,6 +68,17 @@ var taskFunctions = {
                 // .pipe(cache(imagemin({ optimizationLevel: 3, progressive: true, interlaced: true })))
                 .pipe(gulp.dest('dist/images'))
                 .pipe(notify({ message: 'Images task complete' }))
+                .on('data', createStream)
+                .on('end', resolve)
+                .on('error', reject);
+        });
+    },
+    sounds: function(){
+        return new Promise(function(resolve, reject) {
+            gulp.src('src/sounds/*')
+                // .pipe(cache(imagemin({ optimizationLevel: 3, progressive: true, interlaced: true })))
+                .pipe(gulp.dest('dist/sounds'))
+                .pipe(notify({ message: 'Sounds task complete' }))
                 .on('data', createStream)
                 .on('end', resolve)
                 .on('error', reject);
